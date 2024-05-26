@@ -14,6 +14,12 @@ namespace Supermarket.MVVM.ViewModel
     {
         private UserBLL userBLL;
 
+        private CategoryBLL categoryBLL;
+
+        private DistributorBLL distributorBLL;
+
+        private ProductBLL productBLL;
+
         #region Data Members
         public ObservableCollection<User> Users
         {
@@ -40,11 +46,17 @@ namespace Supermarket.MVVM.ViewModel
 
         private void AddTestUser(object obj)
         {
-            User user = new User();
-            user.username = "admin";
-            user.password = "admin";
-            user.is_admin = true;
-            userBLL.Add(user);
+            // test if category, distributor, and product work
+            categoryBLL = new CategoryBLL();
+            distributorBLL = new DistributorBLL();
+            productBLL = new ProductBLL();
+
+            Category category = new Category { Name = "Test Category" };
+            
+            Distributor distributor = new Distributor { Name = "Test Distributor", Country = "Test Country" };
+
+            Product product = new Product { Name = "Test Product", Barcode="111111", Category=category, Distributor=distributor };
+            productBLL.Add(product);
         }
 
         public RelayCommand AddTestUserCommand => new RelayCommand(AddTestUser);

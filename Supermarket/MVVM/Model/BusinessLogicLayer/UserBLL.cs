@@ -13,16 +13,21 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
         public ObservableCollection<User> Users { get; set; }
         public string ErrorMessage { get; set; }
 
+        public UserBLL()
+        {
+            Users = new ObservableCollection<User>();
+        }
+
         public void Add(object obj)
         {
             User user = obj as User;
             if (user != null)
             {
-                if (string.IsNullOrEmpty(user.username))
+                if (string.IsNullOrEmpty(user.Username))
                 {
                     ErrorMessage = "Username is required";
                 }
-                else if (string.IsNullOrEmpty(user.password))
+                else if (string.IsNullOrEmpty(user.Password))
                 {
                     ErrorMessage = "Password is required";
                 }
@@ -30,7 +35,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                 {
                     db.Users.Add(user);
                     db.SaveChanges();
-                    user.id = db.Users.Max(u => u.id);
+                    //user.id = db.Users.Max(u => u.id);
                     Users.Add(user);
                     ErrorMessage = "";
                 }
@@ -43,7 +48,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             if (user != null)
             {
                 //set is_active to false
-                user.is_active = false;
+                user.IsActive = false;
                 db.SaveChanges();
             }
         }
@@ -53,12 +58,12 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             User user = obj as User;
             if (user != null)
             {
-                User userToUpdate = db.Users.SingleOrDefault(u => u.id == user.id);
+                User userToUpdate = db.Users.SingleOrDefault(u => u.Id == user.Id);
                 if (userToUpdate != null)
                 {
-                    userToUpdate.username = user.username;
-                    userToUpdate.password = user.password;
-                    userToUpdate.is_admin = user.is_admin;
+                    userToUpdate.Username = user.Username;
+                    userToUpdate.Password = user.Password;
+                    userToUpdate.IsAdmin = user.IsAdmin;
                     db.SaveChanges();
                 }
             }
@@ -66,7 +71,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
 
         public ObservableCollection<User> GetAll()
         {
-            Users = new ObservableCollection<User>(db.Users.Where(u => u.is_active == true));
+            Users = new ObservableCollection<User>(db.Users.Where(u => u.IsActive == true));
             return Users;
         }
     }

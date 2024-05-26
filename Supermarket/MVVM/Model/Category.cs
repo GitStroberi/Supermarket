@@ -9,15 +9,19 @@ namespace Supermarket.MVVM.Model
 {
     public class Category
     {
-        public int? id { get; set; }
+        public int Id { get; set; }
 
         [MaxLength(50), Required]
-        public string name { get; set; }
-        public bool is_active { get; set; }
+        public string Name { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public ICollection<Product> Products { get; set; }
 
         public Category()
         {
-            is_active = true;
+            IsActive = true;
+            Products = new List<Product>();
         }
     }
 }

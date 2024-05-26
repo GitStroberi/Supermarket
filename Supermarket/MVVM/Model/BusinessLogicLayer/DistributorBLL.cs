@@ -13,16 +13,21 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
         public ObservableCollection<Distributor> Distributors { get; set; }
         public string ErrorMessage { get; set; }
 
+        public DistributorBLL()
+        {
+            Distributors = new ObservableCollection<Distributor>();
+        }
+
         public void Add(object obj)
         {
             Distributor distributor = obj as Distributor;
             if (distributor != null)
             {
-                if (string.IsNullOrEmpty(distributor.name))
+                if (string.IsNullOrEmpty(distributor.Name))
                 {
                     ErrorMessage = "Name is required";
                 }
-                else if (string.IsNullOrEmpty(distributor.country))
+                else if (string.IsNullOrEmpty(distributor.Country))
                 {
                     ErrorMessage = "Country is required";
                 }
@@ -30,7 +35,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                 {
                     db.Distributors.Add(distributor);
                     db.SaveChanges();
-                    distributor.id = db.Distributors.Max(d => d.id);
+                    //distributor.id = db.Distributors.Max(d => d.id);
                     Distributors.Add(distributor);
                     ErrorMessage = "";
                 }
@@ -43,7 +48,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             if (distributor != null)
             {
                 //set is_active to false
-                distributor.is_active = false;
+                distributor.IsActive = false;
                 db.SaveChanges();
             }
         }
@@ -53,12 +58,12 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             Distributor distributor = obj as Distributor;
             if (distributor != null)
             {
-                Distributor distributorToUpdate = db.Distributors.SingleOrDefault(d => d.id == distributor.id);
+                Distributor distributorToUpdate = db.Distributors.SingleOrDefault(d => d.Id == distributor.Id);
                 if (distributorToUpdate != null)
                 {
-                    distributorToUpdate.name = distributor.name;
-                    distributorToUpdate.country = distributor.country;
-                    distributorToUpdate.is_active = distributor.is_active;
+                    distributorToUpdate.Name = distributor.Name;
+                    distributorToUpdate.Country = distributor.Country;
+                    distributorToUpdate.IsActive = distributor.IsActive;
                     db.SaveChanges();
                 }
             }

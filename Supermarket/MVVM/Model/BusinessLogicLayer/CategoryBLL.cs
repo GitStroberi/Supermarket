@@ -15,12 +15,17 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
 
         public string ErrorMessage { get; set; }
 
+        public CategoryBLL()
+        {
+            Categories = new ObservableCollection<Category>();
+        }
+
         public void Add(object obj)
         {
             Category category = obj as Category;
             if (category != null)
             {
-                if (string.IsNullOrEmpty(category.name))
+                if (string.IsNullOrEmpty(category.Name))
                 {
                     ErrorMessage = "Name is required";
                 }
@@ -28,7 +33,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                 {
                     db.Categories.Add(category);
                     db.SaveChanges();
-                    category.id = db.Categories.Max(c => c.id);
+                    //category.id = db.Categories.Max(c => c.id);
                     Categories.Add(category);
                     ErrorMessage = "";
                 }
@@ -41,7 +46,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             if (category != null)
             {
                 //set is_active to false
-                category.is_active = false;
+                category.IsActive = false;
                 db.SaveChanges();
             }
         }
@@ -51,10 +56,11 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             Category category = obj as Category;
             if (category != null)
             {
-                Category categoryToUpdate = db.Categories.SingleOrDefault(c => c.id == category.id);
+                Category categoryToUpdate = db.Categories.SingleOrDefault(c => c.Id == category.Id);
                 if (categoryToUpdate != null)
                 {
-                    categoryToUpdate.name = category.name;
+                    categoryToUpdate.Name = category.Name;
+                    categoryToUpdate.IsActive = category.IsActive;
                     db.SaveChanges();
                 }
             }

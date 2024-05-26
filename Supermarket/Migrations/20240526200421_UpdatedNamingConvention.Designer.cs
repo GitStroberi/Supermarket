@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Supermarket.MVVM.Model;
 
@@ -10,9 +11,11 @@ using Supermarket.MVVM.Model;
 namespace Supermarket.Migrations
 {
     [DbContext(typeof(SupermarketDBContext))]
-    partial class SupermarketDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240526200421_UpdatedNamingConvention")]
+    partial class UpdatedNamingConvention
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +45,7 @@ namespace Supermarket.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Supermarket.MVVM.Model.Distributor", b =>
@@ -71,7 +74,7 @@ namespace Supermarket.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Distributors", (string)null);
+                    b.ToTable("Distributors");
                 });
 
             modelBuilder.Entity("Supermarket.MVVM.Model.Product", b =>
@@ -110,7 +113,7 @@ namespace Supermarket.Migrations
 
                     b.HasIndex("DistributorId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Supermarket.MVVM.Model.User", b =>
@@ -142,7 +145,7 @@ namespace Supermarket.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Supermarket.MVVM.Model.Product", b =>

@@ -9,17 +9,22 @@ namespace Supermarket.MVVM.Model
 {
     public class Distributor
     {
-        public int? id { get; set; }
+        public int Id { get; set; }
 
         [MaxLength(50), Required]
-        public string name { get; set; }
+        public string Name { get; set; }
+
         [MaxLength(50), Required]
-        public string country { get; set; }
-        public bool is_active { get; set; }
+        public string Country { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public ICollection<Product> Products { get; set; } // Use ICollection for better flexibility
 
         public Distributor()
         {
-            is_active = true;
+            IsActive = true;
+            Products = new List<Product>(); // Initialize collection
         }
     }
 }
