@@ -10,7 +10,6 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
     public class UserBLL
     {
         private SupermarketDBContext db = new SupermarketDBContext();
-
         public ObservableCollection<User> Users { get; set; }
         public string ErrorMessage { get; set; }
 

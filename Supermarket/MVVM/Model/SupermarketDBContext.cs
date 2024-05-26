@@ -10,6 +10,8 @@ namespace Supermarket.MVVM.Model
     public class SupermarketDBContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+
+        public DbSet<Distributor> Distributors { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=DESKTOP-25PUGFD\MSSQLSERVER02;Database=Supermarket;Trusted_Connection=True;TrustServerCertificate=True;");
@@ -18,6 +20,7 @@ namespace Supermarket.MVVM.Model
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasIndex(u => u.username).IsUnique();
+            modelBuilder.Entity<Distributor>().HasIndex(d => d.name).IsUnique();
         }
     }
 }
