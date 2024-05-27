@@ -16,6 +16,8 @@ namespace Supermarket.MVVM.Model
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<Stock> Stocks { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=DESKTOP-25PUGFD\MSSQLSERVER02;Database=Supermarket;Trusted_Connection=True;TrustServerCertificate=True;");
@@ -29,6 +31,9 @@ namespace Supermarket.MVVM.Model
             modelBuilder.Entity<Product>().HasIndex(p => p.Barcode).IsUnique();
             modelBuilder.Entity<Product>().HasOne(p => p.Category).WithMany(c => c.Products).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Product>().HasOne(p => p.Distributor).WithMany(d => d.Products).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Stock>().HasOne(s => s.Product).WithMany(p => p.Stocks).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Stock>().Property(s => s.AcquisitionPrice).HasColumnType("decimal(18,4)");
+            modelBuilder.Entity<Stock>().Property(s => s.SalePrice).HasColumnType("decimal(18,4)");
         }
     }
 }

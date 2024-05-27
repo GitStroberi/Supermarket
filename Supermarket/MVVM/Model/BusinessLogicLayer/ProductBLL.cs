@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Supermarket.MVVM.Model.BusinessLogicLayer
 {
-    class ProductBLL
+    public class ProductBLL
     {
         private SupermarketDBContext db = new SupermarketDBContext();
 

@@ -24,11 +24,14 @@ namespace Supermarket.MVVM.Model
         public int DistributorId { get; set; }
         public Distributor Distributor { get; set; }
 
+        public ICollection<Stock> Stocks { get; set; }
+
         public bool IsActive { get; set; }
 
         public Product()
         {
             IsActive = true;
+            Stocks = new List<Stock>();
         }
     }
 }
