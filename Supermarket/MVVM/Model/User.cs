@@ -20,11 +20,14 @@ namespace Supermarket.MVVM.Model
 
         public bool IsAdmin { get; set; } // Non-nullable bool
 
+        public ICollection<Receipt> Receipts { get; set; }
+
         public bool IsActive { get; set; } // Default to true in constructor
 
         public User()
         {
             IsActive = true;
+            Receipts = new List<Receipt>();
         }
     }
 }

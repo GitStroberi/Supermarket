@@ -1,4 +1,5 @@
-﻿using Supermarket.Core;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using Supermarket.Core;
 using Supermarket.Services;
 
 namespace Supermarket.MVVM.ViewModel
@@ -19,7 +20,6 @@ namespace Supermarket.MVVM.ViewModel
 
         public RelayCommand NavigateHomeCommand { get; set; }
         public RelayCommand NavigateLoginCommand { get; set; }
-
 
         public MainViewModel(INavigationService navService)
         {

@@ -1,11 +1,13 @@
-﻿<UserControl x:Class="Supermarket.MVVM.View.LoginView"
+﻿<UserControl x:Class="Supermarket.MVVM.View.RegisterView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Supermarket.MVVM.View"
+             xmlns:view="clr-namespace:Supermarket.MVVM.View"
+             xmlns:vm="clr-namespace:Supermarket.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <!-- Centering container -->
     <Grid VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -22,16 +24,23 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <TextBlock Text="Username:" Grid.Row="0" Margin="0,0,5,5"/>
-            <TextBox Text="{Binding Username}" Grid.Row="1" Grid.Column="1" Margin="0,0,0,5"/>
+            <TextBox Text="{Binding RegisterUsername}" Grid.Row="1" Grid.Column="1" Margin="0,0,0,5"/>
 
             <TextBlock Text="Password:" Grid.Row="2" Margin="0,0,5,5"/>
-            <TextBox Text="{Binding Password}" Grid.Row="3" Grid.Column="1" Margin="0,0,0,5"/>
+            <TextBox Text="{Binding RegisterPassword}" Grid.Row="3" Grid.Column="1" Margin="0,0,0,5"/>
 
-            <Button Content="Login" Command="{Binding LoginCommand}" Grid.Row="4"  Margin="0,0,0,5"/>
-            <Button Content="Register" Command="{Binding RegisterCommand}" Grid.Row="5"  Margin="0,0,0,5"/>
+            <TextBlock Text="Confirm Password:" Grid.Row="4" Margin="0,0,5,5"/>
+            <TextBox Text="{Binding RegisterConfirmPassword}" Grid.Row="5" Grid.Column="1" Margin="0,0,0,5"/>
+
+            <CheckBox Content="Is Admin" IsChecked="{Binding IsAdmin}" Grid.Row="6" Grid.Column="1" Margin="0,0,0,5"/>
+
+            <Button Content="Register" Command="{Binding RegisterCommand}" Grid.Row="7" Grid.Column="1" Margin="0,0,0,5"/>
+            <Button Content="Cancel" Command="{Binding CancelCommand}" Grid.Row="8" Grid.Column="1" Margin="0,0,0,5"/>
         </Grid>
     </Grid>
 </UserControl>

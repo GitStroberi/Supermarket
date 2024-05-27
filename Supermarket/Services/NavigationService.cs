@@ -1,5 +1,7 @@
 ﻿using System;
 using Supermarket.Core;
+using Supermarket.MVVM.Model;
+using Supermarket.MVVM.ViewModel;
 
 namespace Supermarket.Services
 {
@@ -7,6 +9,8 @@ namespace Supermarket.Services
     {
         ViewModel CurrentView { get; }
         void NavigateTo<T>() where T : ViewModel;
+
+        void NavigateTo<T>(User user) where T : ViewModel;
     }
     internal class NavigationService : ObservableObject, INavigationService
     {
@@ -29,6 +33,18 @@ namespace Supermarket.Services
         public void NavigateTo<TViewModel>() where TViewModel : ViewModel
         {
             ViewModel viewModel = _viewModelFactory.Invoke(typeof(TViewModel));
+            CurrentView = viewModel;
+        }
+
+        public void NavigateTo<TViewModel>(User user) where TViewModel : ViewModel
+        {
+            ViewModel viewModel = _viewModelFactory.Invoke(typeof(TViewModel));
+            
+            if (viewModel is HomeViewModel homeViewModel)
+            {
+                homeViewModel.User = user;
+            }
+
             CurrentView = viewModel;
         }
     }

@@ -26,12 +26,15 @@ namespace Supermarket.MVVM.Model
 
         public ICollection<Stock> Stocks { get; set; }
 
+        public ICollection<ProductReceipt> ProductReceipts { get; set; }
+
         public bool IsActive { get; set; }
 
         public Product()
         {
             IsActive = true;
             Stocks = new List<Stock>();
+            ProductReceipts = new List<ProductReceipt>();
         }
     }
 }

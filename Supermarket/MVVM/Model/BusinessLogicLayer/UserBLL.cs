@@ -69,10 +69,22 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             }
         }
 
+        public User Authenticate(string username, string password)
+        {
+            User user = db.Users.SingleOrDefault(u => u.Username == username && u.Password == password);
+            return user;
+        }
+
         public ObservableCollection<User> GetAll()
         {
             Users = new ObservableCollection<User>(db.Users.Where(u => u.IsActive == true));
             return Users;
+        }
+
+        public User GetByUsername(string username)
+        {
+            User user = db.Users.SingleOrDefault(u => u.Username == username);
+            return user;
         }
     }
 }
