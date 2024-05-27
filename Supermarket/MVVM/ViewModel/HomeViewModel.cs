@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Supermarket.Core;
 using Supermarket.MVVM.Model;
 
 namespace Supermarket.MVVM.ViewModel
 {
     public class HomeViewModel : Core.ViewModel
     {
-        public HomeViewModel() { }
+        public RelayCommand CheckPrivilegeCommand { get; }
+        public HomeViewModel() { 
+            CheckPrivilegeCommand = new RelayCommand(CheckPrivilege);
+        }
 
         private User _user;
         public User User
@@ -25,29 +29,28 @@ namespace Supermarket.MVVM.ViewModel
         //testing logging in 
         //string for logged in as admin
 
-        private string _adminLoggedIn;
-        public string AdminLoggedIn
+        private string _loggedIn;
+        public string LoggedIn
         {
-            get { return _adminLoggedIn; }
+            get { return _loggedIn; }
             set
             {
-                _adminLoggedIn = value;
-                OnPropertyChanged();
-            }
-        }
-
-        //string for logged in as user
-        private string _userLoggedIn;
-        public string UserLoggedIn
-        {
-            get { return _userLoggedIn; }
-            set
-            {
-                _userLoggedIn = value;
+                _loggedIn = value;
                 OnPropertyChanged();
             }
         }
 
 
+        public void CheckPrivilege(object obj)
+        {
+            if (User.IsAdmin == true)
+            {
+                LoggedIn = "Logged in as Admin";
+            }
+            else
+            {
+                LoggedIn = "Logged in as User";
+            }
+        }
     }
 }

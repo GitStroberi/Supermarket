@@ -21,13 +21,16 @@ namespace Supermarket.MVVM.ViewModel
         public RelayCommand NavigateHomeCommand { get; set; }
         public RelayCommand NavigateLoginCommand { get; set; }
 
+        public RelayCommand NavigateUserCommand { get; set; }
+
         public MainViewModel(INavigationService navService)
         {
             Navigation = navService;
             NavigateHomeCommand = new RelayCommand(o => { Navigation.NavigateTo<HomeViewModel>(); }, o => true);
             NavigateLoginCommand = new RelayCommand(o => { Navigation.NavigateTo<LoginViewModel>(); }, o => true);
+            NavigateUserCommand = new RelayCommand(o => { Navigation.NavigateTo<UserViewModel>(); }, o => true);
 
-            Navigation.NavigateTo<HomeViewModel>();
+            Navigation.NavigateTo<LoginViewModel>();
         }
     }
 }

@@ -19,6 +19,9 @@
             <Button Content="Login"
             Height="25"
             Command = "{Binding NavigateLoginCommand}"/>
+            <Button Content="User"
+                    Height="25"
+                    Command = "{Binding NavigateUserCommand}"/>
         </StackPanel>
 
         <ContentControl Grid.Column="1"

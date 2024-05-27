@@ -9,5 +9,9 @@
              Background="AliceBlue"
              >
     <Grid>
+        <TextBlock Text="Logged User: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+        <TextBlock Text="{Binding LoggedIn}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,10,0,0"/>
+
+        <Button Content="Check" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0" Command="{Binding CheckPrivilegeCommand}"/>
     </Grid>
 </UserControl>

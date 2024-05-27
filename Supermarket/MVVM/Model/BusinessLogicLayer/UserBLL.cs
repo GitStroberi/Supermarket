@@ -81,6 +81,12 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             return Users;
         }
 
+        public ObservableCollection<User> TrueGetAll()
+        {
+            Users = new ObservableCollection<User>(db.Users);
+            return Users;
+        }
+
         public User GetByUsername(string username)
         {
             User user = db.Users.SingleOrDefault(u => u.Username == username);
