@@ -19,15 +19,16 @@
             <Button Content="User"
                     Height="25"
                     Command = "{Binding NavigateUserCommand}"/>
-            <Button Content="Products"
-                    Height="25"
-                    Command = "{Binding NavigateProductCommand}"/>
             <Button Content="Distributors"
                     Height="25"
                     Command = "{Binding NavigateDistributorCommand}"/>
-            <Button Content="Categories"
+            <!--<Button Content="Categories"
                     Height="25"
                     Command = "{Binding NavigateCategoryCommand}"/>
+
+            <Button Content="Products"
+                    Height="25"
+                    Command = "{Binding NavigateProductCommand}"/>
             <Button Content="Stocks"
                     Height="25"
                     Command = "{Binding NavigateStockCommand}"/>
@@ -48,7 +49,7 @@
                     Command = "{Binding NavigateEarningsCommand}"/>
             <Button Content="Big Receipt"
                     Height="25"
-                    Command = "{Binding NavigateBigReceiptCommand}"/>
+                    Command = "{Binding NavigateBigReceiptCommand}"/>-->
 
         </StackPanel>
 

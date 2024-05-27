@@ -16,7 +16,7 @@ namespace Supermarket.MVVM.ViewModel
 
         #region Data Members
         public ObservableCollection<User> Users {
-            get { return userBLL.GetAll(); }
+            get { return userBLL.Users; }
             set
             {
                 userBLL.Users = value;
@@ -39,7 +39,7 @@ namespace Supermarket.MVVM.ViewModel
         {
             userBLL = new UserBLL();
 
-            Users = new ObservableCollection<User>(userBLL.GetAll());
+            Users = userBLL.Users;
 
             SelectedUser = Users.FirstOrDefault();
 
@@ -51,19 +51,19 @@ namespace Supermarket.MVVM.ViewModel
         private void Add(object obj)
         {
             userBLL.Add(SelectedUser);
-            Users = new ObservableCollection<User>(userBLL.GetAll());
+            Users = userBLL.Users;
         }
 
         private void Remove(object obj)
         {
             userBLL.Remove(SelectedUser);
-            Users = new ObservableCollection<User>(userBLL.GetAll());
+            Users = userBLL.Users;
         }
 
         private void Update(object obj)
         {
             userBLL.Update(SelectedUser);
-            Users = new ObservableCollection<User>(userBLL.GetAll());
+            Users = userBLL.Users;
         }
     }
 }

@@ -10,7 +10,13 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
     public class DistributorBLL
     {
         private SupermarketDBContext db = new SupermarketDBContext();
-        public ObservableCollection<Distributor> Distributors { get; set; }
+        public ObservableCollection<Distributor> Distributors {
+            get { return TrueGetAll(); }
+            set
+            {
+                Distributors = value;
+            }
+        }
         public string ErrorMessage { get; set; }
 
         public DistributorBLL()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,15 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
     public class StockBLL
     {
         private SupermarketDBContext db = new SupermarketDBContext();
+
+        public ObservableCollection<Stock> Stocks
+        {
+            get { return TrueGetAll(); }
+            set
+            {
+                Stocks = value;
+            }
+        }
         public string ErrorMessage { get; set; }
 
         public void Add(object obj)
@@ -68,6 +78,16 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                     db.SaveChanges();
                 }
             }
+        }
+
+        public ObservableCollection<Stock> TrueGetAll()
+        {
+            return new ObservableCollection<Stock>(db.Stocks);
+        }
+
+        public ObservableCollection<Stock> GetAll()
+        {
+            return new ObservableCollection<Stock>(db.Stocks.Where(s => s.IsActive == true));
         }
     }
 }

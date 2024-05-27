@@ -97,10 +97,12 @@ namespace Supermarket.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-
-
-
-        #endregion
+        
+        public void AddProduct()
+        {
+            productBLL.Add(SelectedProduct);
+            Products = new ObservableCollection<Product>(productBLL.TrueGetAll());
+        }
 
     }
 }

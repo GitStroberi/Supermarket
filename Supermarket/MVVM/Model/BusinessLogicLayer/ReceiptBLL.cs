@@ -11,7 +11,13 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
     {
         private SupermarketDBContext db = new SupermarketDBContext();
 
-        public ObservableCollection<Receipt> Receipts { get; set; }
+        public ObservableCollection<Receipt> Receipts { 
+            get { return TrueGetAll(); }
+            set
+            {
+                Receipts = value;
+            }
+        }
 
         public string ErrorMessage { get; set; }
 
@@ -71,6 +77,16 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                     db.SaveChanges();
                 }
             }
+        }
+
+        private ObservableCollection<Receipt> TrueGetAll()
+        {
+            return new ObservableCollection<Receipt>(db.Receipts);
+        }
+
+        private ObservableCollection<Receipt> GetAll()
+        {
+            return new ObservableCollection<Receipt>(db.Receipts.Where(r => r.IsActive == true));
         }
     }
 }

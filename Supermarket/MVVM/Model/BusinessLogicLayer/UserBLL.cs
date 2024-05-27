@@ -10,12 +10,21 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
     public class UserBLL
     {
         private SupermarketDBContext db = new SupermarketDBContext();
-        public ObservableCollection<User> Users { get; set; }
+
+        private ObservableCollection<User> _users;
+        public ObservableCollection<User> Users
+        {
+            get { return _users; }
+            set
+            {
+                _users = value;
+            }
+        }
         public string ErrorMessage { get; set; }
 
         public UserBLL()
         {
-            Users = new ObservableCollection<User>();
+            Users = TrueGetAll();
         }
 
         public void Add(object obj)
@@ -77,14 +86,12 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
 
         public ObservableCollection<User> GetAll()
         {
-            Users = new ObservableCollection<User>(db.Users.Where(u => u.IsActive == true));
-            return Users;
+            return new ObservableCollection<User>(db.Users.Where(u => u.IsActive == true));
         }
 
         public ObservableCollection<User> TrueGetAll()
         {
-            Users = new ObservableCollection<User>(db.Users);
-            return Users;
+            return new ObservableCollection<User>(db.Users);
         }
 
         public User GetByUsername(string username)

@@ -11,7 +11,13 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
     {
         private SupermarketDBContext db = new SupermarketDBContext();
 
-        public ObservableCollection<Product> Products { get; set; }
+        public ObservableCollection<Product> Products {
+            get { return TrueGetAll(); }
+            set
+            {
+                Products = value;
+            }
+        }
 
         public string ErrorMessage { get; set; }
 
