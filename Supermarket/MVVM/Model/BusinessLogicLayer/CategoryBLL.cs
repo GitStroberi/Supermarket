@@ -65,5 +65,15 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                 }
             }
         }
+
+        public ObservableCollection<Category> GetAll()
+        {
+            return new ObservableCollection<Category>(db.Categories.Where(c => c.IsActive == true).ToList());
+        }
+
+        public ObservableCollection<Category> TrueGetAll()
+        {
+            return new ObservableCollection<Category>(db.Categories.ToList());
+        }
     }
 }

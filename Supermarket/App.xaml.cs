@@ -15,6 +15,8 @@ namespace Supermarket
     public partial class App : Application
     {
         private readonly ServiceProvider _serviceProvider;
+
+        public static MainViewModel MainVM { get; set; }
         public App()
         {
             IServiceCollection services = new ServiceCollection();
@@ -40,6 +42,7 @@ namespace Supermarket
         protected override void OnStartup(StartupEventArgs e)
         {
             var mainWindow = _serviceProvider.GetService<MainWindow>();
+            MainVM = _serviceProvider.GetRequiredService<MainViewModel>();
             mainWindow.Show();
         }
     }

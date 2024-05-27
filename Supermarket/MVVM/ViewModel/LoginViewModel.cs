@@ -110,8 +110,9 @@ namespace Supermarket.MVVM.ViewModel
                 User user = userBLL.Authenticate(Username, Password);
                 if (user != null)
                 {
+                    App.MainVM.CurrentUser = user;
                     //navigate to the home page
-                    NavigationService.NavigateTo<HomeViewModel>(user);
+                    NavigationService.NavigateTo<HomeViewModel>();
                 }
                 else
                 {
