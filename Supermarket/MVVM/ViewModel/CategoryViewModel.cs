@@ -12,14 +12,14 @@ namespace Supermarket.MVVM.ViewModel
 {
     public class CategoryViewModel : Core.ViewModel
     {
-        private CategoryBLL categoryBLL;
+        private readonly CategoryBLL _categoryBLL;
 
         public ObservableCollection<Category> Categories
         {
-            get { return categoryBLL.Categories; }
+            get { return _categoryBLL.Categories; }
             set
             {
-                categoryBLL.Categories = value;
+                _categoryBLL.Categories = value;
                 OnPropertyChanged();
             }
         }
@@ -58,11 +58,11 @@ namespace Supermarket.MVVM.ViewModel
         public RelayCommand RemoveCommand { get; set; }
         public RelayCommand UpdateCommand { get; set; }
 
-        public CategoryViewModel()
+        public CategoryViewModel(CategoryBLL categoryBLL)
         {
-            categoryBLL = new CategoryBLL();
+            _categoryBLL = categoryBLL;
 
-            Categories = categoryBLL.Categories;
+            Categories = _categoryBLL.Categories;
 
             SelectedCategory = Categories.FirstOrDefault();
 
@@ -77,20 +77,20 @@ namespace Supermarket.MVVM.ViewModel
             {
                 Name = Name
             };
-            categoryBLL.Add(category);
-            Categories = categoryBLL.Categories;
+            _categoryBLL.Add(category);
+            Categories = _categoryBLL.Categories;
         }
 
         public void Remove(object obj)
         {
-            categoryBLL.Remove(SelectedCategory);
-            Categories = categoryBLL.Categories;
+            _categoryBLL.Remove(SelectedCategory);
+            Categories = _categoryBLL.Categories;
         }
 
         public void Update(object obj)
         {
-            categoryBLL.Update(SelectedCategory, Name);
-            Categories = categoryBLL.Categories;
+            _categoryBLL.Update(SelectedCategory, Name);
+            Categories = _categoryBLL.Categories;
         }
         
     }

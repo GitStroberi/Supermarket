@@ -9,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Supermarket.MVVM.ViewModel;
 using Supermarket.Core;
 using Supermarket.Services;
+using Microsoft.EntityFrameworkCore;
+using Supermarket.MVVM.Model;
+using Supermarket.MVVM.Model.BusinessLogicLayer;
 
 namespace Supermarket
 {
@@ -35,6 +38,16 @@ namespace Supermarket
             services.AddSingleton<CategoryViewModel>(); // category
 
             services.AddSingleton<INavigationService, NavigationService>();
+
+            services.AddDbContext<SupermarketDBContext>(); // Use scoped lifetime
+
+            services.AddTransient<UserBLL>();
+            services.AddTransient<DistributorBLL>();
+            services.AddTransient<CategoryBLL>();
+            services.AddTransient<ProductBLL>();
+            services.AddTransient<ProductReceiptBLL>();
+            services.AddTransient<ReceiptBLL>();
+            services.AddTransient<StockBLL>();
 
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => serviceProvider.GetRequiredService(viewModelType) as ViewModel);
 

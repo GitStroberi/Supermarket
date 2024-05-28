@@ -10,7 +10,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
 {
     public class StockBLL
     {
-        private SupermarketDBContext db = new SupermarketDBContext();
+        private readonly SupermarketDBContext _db = new SupermarketDBContext();
 
         private ObservableCollection<Stock> _stocks;
         public ObservableCollection<Stock> Stocks
@@ -20,6 +20,12 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             {
                 _stocks = value;
             }
+        }
+
+        public StockBLL(SupermarketDBContext db)
+        {
+            _db = db;
+            _stocks = TrueGetAll();
         }
         public string ErrorMessage { get; set; }
 
@@ -42,9 +48,9 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                 }
                 else
                 {
-                    db.Products.Attach(stock.Product);
-                    db.Stocks.Add(stock);
-                    db.SaveChanges();
+                    _db.Products.Attach(stock.Product);
+                    _db.Stocks.Add(stock);
+                    _db.SaveChanges();
                     ErrorMessage = "";
                 }
             }
@@ -57,7 +63,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             {
                 //set is_active to false
                 stock.IsActive = false;
-                db.SaveChanges();
+                _db.SaveChanges();
             }
         }
 
@@ -66,7 +72,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             Stock stock = obj as Stock;
             if (stock != null)
             {
-                Stock stockToUpdate = db.Stocks.SingleOrDefault(s => s.Id == stock.Id);
+                Stock stockToUpdate = _db.Stocks.SingleOrDefault(s => s.Id == stock.Id);
                 if (stockToUpdate != null)
                 {
                     stockToUpdate.Product = stock.Product;
@@ -76,19 +82,19 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                     stockToUpdate.ExpirationDate = stock.ExpirationDate;
                     stockToUpdate.SalePrice = stock.SalePrice;
                     stockToUpdate.IsActive = stock.IsActive;
-                    db.SaveChanges();
+                    _db.SaveChanges();
                 }
             }
         }
 
         public ObservableCollection<Stock> TrueGetAll()
         {
-            return new ObservableCollection<Stock>(db.Stocks);
+            return new ObservableCollection<Stock>(_db.Stocks);
         }
 
         public ObservableCollection<Stock> GetAll()
         {
-            return new ObservableCollection<Stock>(db.Stocks.Where(s => s.IsActive == true));
+            return new ObservableCollection<Stock>(_db.Stocks.Where(s => s.IsActive == true));
         }
     }
 }

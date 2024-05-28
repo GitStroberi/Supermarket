@@ -9,7 +9,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
 {
     public class CategoryBLL
     {
-        private SupermarketDBContext db = new SupermarketDBContext();
+        private readonly SupermarketDBContext _db = new SupermarketDBContext();
 
         private ObservableCollection<Category> _categories;
         public ObservableCollection<Category> Categories
@@ -23,8 +23,9 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
 
         public string ErrorMessage { get; set; }
 
-        public CategoryBLL()
+        public CategoryBLL(SupermarketDBContext db)
         {
+            _db = db;
             Categories = TrueGetAll();
         }
 
@@ -39,9 +40,9 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                 }
                 else
                 {
-                    db.Categories.Add(category);
-                    db.SaveChanges();
-                    //category.id = db.Categories.Max(c => c.id);
+                    _db.Categories.Add(category);
+                    _db.SaveChanges();
+                    //category.id = _db.Categories.Max(c => c.id);
                     Categories.Add(category);
                     ErrorMessage = "";
                 }
@@ -55,7 +56,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             {
                 //set is_active to false
                 category.IsActive = false;
-                db.SaveChanges();
+                _db.SaveChanges();
             }
         }
 
@@ -71,7 +72,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                 else
                 {
                     category.Name = name;
-                    db.SaveChanges();
+                    _db.SaveChanges();
                     ErrorMessage = "";
                 }
             }
@@ -79,12 +80,12 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
 
         public ObservableCollection<Category> GetAll()
         {
-            return new ObservableCollection<Category>(db.Categories.Where(c => c.IsActive == true).ToList());
+            return new ObservableCollection<Category>(_db.Categories.Where(c => c.IsActive == true).ToList());
         }
 
         public ObservableCollection<Category> TrueGetAll()
         {
-            return new ObservableCollection<Category>(db.Categories.ToList());
+            return new ObservableCollection<Category>(_db.Categories.ToList());
         }
     }
 }

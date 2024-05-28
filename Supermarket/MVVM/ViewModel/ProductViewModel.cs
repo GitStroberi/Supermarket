@@ -11,36 +11,36 @@ namespace Supermarket.MVVM.ViewModel
 {
     public class ProductViewModel : Core.ViewModel
     {
-        private ProductBLL productBLL;
-        private CategoryBLL categoryBLL;
-        private DistributorBLL distributorBLL;
+        private readonly ProductBLL _productBLL;
+        private readonly CategoryBLL _categoryBLL;
+        private readonly DistributorBLL _distributorBLL;
 
         public ObservableCollection<Product> Products
         {
-            get { return productBLL.Products; }
+            get { return _productBLL.Products; }
             set
             {
-                productBLL.Products = value;
+                _productBLL.Products = value;
                 OnPropertyChanged();
             }
         }
 
         public ObservableCollection<Category> Categories
         {
-            get { return categoryBLL.Categories; }
+            get { return _categoryBLL.Categories; }
             set
             {
-                categoryBLL.Categories = value;
+                _categoryBLL.Categories = value;
                 OnPropertyChanged();
             }
         }
 
         public ObservableCollection<Distributor> Distributors
         {
-            get { return distributorBLL.Distributors; }
+            get { return _distributorBLL.Distributors; }
             set
             {
-                distributorBLL.Distributors = value;
+                _distributorBLL.Distributors = value;
                 OnPropertyChanged();
             }
         }
@@ -77,31 +77,31 @@ namespace Supermarket.MVVM.ViewModel
             }
         }
 
-        public ProductViewModel()
+        public ProductViewModel(ProductBLL productBLL, CategoryBLL categoryBLL, DistributorBLL distributorBLL)
         {
-            productBLL = new ProductBLL();
-            categoryBLL = new CategoryBLL();
-            distributorBLL = new DistributorBLL();
+            _productBLL = productBLL;
+            _categoryBLL = categoryBLL;
+            _distributorBLL = distributorBLL;
 
-            Products = new ObservableCollection<Product>(productBLL.Products);
-            Categories = new ObservableCollection<Category>(categoryBLL.Categories);
-            Distributors = new ObservableCollection<Distributor>(distributorBLL.Distributors);
+            Products = _productBLL.Products;
+            Categories = _categoryBLL.Categories;
+            Distributors = _distributorBLL.Distributors;
         }
 
         public string ErrorMessage
         {
-            get { return productBLL.ErrorMessage; }
+            get { return _productBLL.ErrorMessage; }
             set
             {
-                productBLL.ErrorMessage = value;
+                _productBLL.ErrorMessage = value;
                 OnPropertyChanged();
             }
         }
         
         public void AddProduct()
         {
-            productBLL.Add(SelectedProduct);
-            Products = new ObservableCollection<Product>(productBLL.TrueGetAll());
+            _productBLL.Add(SelectedProduct);
+            Products = new ObservableCollection<Product>(_productBLL.TrueGetAll());
         }
 
     }

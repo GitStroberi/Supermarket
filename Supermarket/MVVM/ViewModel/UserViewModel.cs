@@ -12,14 +12,14 @@ namespace Supermarket.MVVM.ViewModel
 {
     public class UserViewModel : Core.ViewModel
     {
-        private UserBLL userBLL;
+        private readonly UserBLL _userBLL;
 
         #region Data Members
         public ObservableCollection<User> Users {
-            get { return userBLL.Users; }
+            get { return _userBLL.Users; }
             set
             {
-                userBLL.Users = value;
+                _userBLL.Users = value;
                 OnPropertyChanged();
             }
         }
@@ -35,9 +35,9 @@ namespace Supermarket.MVVM.ViewModel
 
         #endregion
 
-        public UserViewModel()
+        public UserViewModel(UserBLL userBLL)
         {
-            userBLL = new UserBLL();
+            _userBLL = userBLL;
 
             Users = userBLL.Users;
 
@@ -50,20 +50,20 @@ namespace Supermarket.MVVM.ViewModel
 
         private void Add(object obj)
         {
-            userBLL.Add(SelectedUser);
-            Users = userBLL.Users;
+            _userBLL.Add(SelectedUser);
+            Users = _userBLL.Users;
         }
 
         private void Remove(object obj)
         {
-            userBLL.Remove(SelectedUser);
-            Users = userBLL.Users;
+            _userBLL.Remove(SelectedUser);
+            Users = _userBLL.Users;
         }
 
         private void Update(object obj)
         {
-            userBLL.Update(SelectedUser);
-            Users = userBLL.Users;
+            _userBLL.Update(SelectedUser);
+            Users = _userBLL.Users;
         }
     }
 }

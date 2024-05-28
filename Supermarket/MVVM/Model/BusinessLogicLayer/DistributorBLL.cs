@@ -9,7 +9,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
 {
     public class DistributorBLL
     {
-        private SupermarketDBContext db = new SupermarketDBContext();
+        private readonly SupermarketDBContext _db = new SupermarketDBContext();
         
         private ObservableCollection<Distributor> _distributors;
         public ObservableCollection<Distributor> Distributors
@@ -22,8 +22,9 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
         }
         public string ErrorMessage { get; set; }
 
-        public DistributorBLL()
+        public DistributorBLL(SupermarketDBContext db)
         {
+            _db = db;
             Distributors = TrueGetAll();
         }
 
@@ -42,9 +43,9 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                 }
                 else
                 {
-                    db.Distributors.Add(distributor);
-                    db.SaveChanges();
-                    //distributor.Id = db.Distributors.Max(d => d.Id);
+                    _db.Distributors.Add(distributor);
+                    _db.SaveChanges();
+                    //distributor.Id = _db.Distributors.Max(d => d.Id);
                     Distributors.Add(distributor);
                     ErrorMessage = "";
                 }
@@ -58,7 +59,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             {
                 //set is_active to false
                 distributor.IsActive = false;
-                db.SaveChanges();
+                _db.SaveChanges();
             }
         }
 
@@ -79,7 +80,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                 {
                     distributor.Name = name;
                     distributor.Country = country;
-                    db.SaveChanges();
+                    _db.SaveChanges();
                     ErrorMessage = "";
                 }
             }
@@ -87,12 +88,12 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
 
         public ObservableCollection<Distributor> GetAll()
         {
-            return new ObservableCollection<Distributor>(db.Distributors.Where(d => d.IsActive == true));
+            return new ObservableCollection<Distributor>(_db.Distributors.Where(d => d.IsActive == true));
         }
 
         public ObservableCollection<Distributor> TrueGetAll()
         {
-            return new ObservableCollection<Distributor>(db.Distributors);
+            return new ObservableCollection<Distributor>(_db.Distributors);
         }
     }
 }

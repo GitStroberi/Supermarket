@@ -9,7 +9,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
 {
     public class UserBLL
     {
-        private SupermarketDBContext db = new SupermarketDBContext();
+        private readonly SupermarketDBContext _db;
 
         private ObservableCollection<User> _users;
         public ObservableCollection<User> Users
@@ -22,8 +22,9 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
         }
         public string ErrorMessage { get; set; }
 
-        public UserBLL()
+        public UserBLL(SupermarketDBContext db)
         {
+            _db = db;
             Users = TrueGetAll();
         }
 
@@ -42,8 +43,8 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                 }
                 else
                 {
-                    db.Users.Add(user);
-                    db.SaveChanges();
+                    _db.Users.Add(user);
+                    _db.SaveChanges();
                     //user.id = db.Users.Max(u => u.id);
                     Users.Add(user);
                     ErrorMessage = "";
@@ -58,7 +59,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             {
                 //set is_active to false
                 user.IsActive = false;
-                db.SaveChanges();
+                _db.SaveChanges();
             }
         }
 
@@ -67,36 +68,36 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             User user = obj as User;
             if (user != null)
             {
-                User userToUpdate = db.Users.SingleOrDefault(u => u.Id == user.Id);
+                User userToUpdate = _db.Users.SingleOrDefault(u => u.Id == user.Id);
                 if (userToUpdate != null)
                 {
                     userToUpdate.Username = user.Username;
                     userToUpdate.Password = user.Password;
                     userToUpdate.IsAdmin = user.IsAdmin;
-                    db.SaveChanges();
+                    _db.SaveChanges();
                 }
             }
         }
 
         public User Authenticate(string username, string password)
         {
-            User user = db.Users.SingleOrDefault(u => u.Username == username && u.Password == password);
+            User user = _db.Users.SingleOrDefault(u => u.Username == username && u.Password == password);
             return user;
         }
 
         public ObservableCollection<User> GetAll()
         {
-            return new ObservableCollection<User>(db.Users.Where(u => u.IsActive == true));
+            return new ObservableCollection<User>(_db.Users.Where(u => u.IsActive == true));
         }
 
         public ObservableCollection<User> TrueGetAll()
         {
-            return new ObservableCollection<User>(db.Users);
+            return new ObservableCollection<User>(_db.Users);
         }
 
         public User GetByUsername(string username)
         {
-            User user = db.Users.SingleOrDefault(u => u.Username == username);
+            User user = _db.Users.SingleOrDefault(u => u.Username == username);
             return user;
         }
     }

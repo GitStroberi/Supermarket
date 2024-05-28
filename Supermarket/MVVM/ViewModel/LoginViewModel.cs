@@ -14,15 +14,15 @@ namespace Supermarket.MVVM.ViewModel
 {
     public class LoginViewModel : Core.ViewModel
     {
-        private UserBLL userBLL;
+        private readonly UserBLL _userBLL;
 
         #region Data Members
         public ObservableCollection<User> Users
         {
-            get { return userBLL.Users; }
+            get { return _userBLL.Users; }
             set
             {
-                userBLL.Users = value;
+                _userBLL.Users = value;
                 OnPropertyChanged();
             }
         }
@@ -51,10 +51,10 @@ namespace Supermarket.MVVM.ViewModel
 
         public string ErrorMessage
         {
-            get { return userBLL.ErrorMessage; }
+            get { return _userBLL.ErrorMessage; }
             set
             {
-                userBLL.ErrorMessage = value;
+                _userBLL.ErrorMessage = value;
                 OnPropertyChanged();
             }
         }
@@ -80,10 +80,10 @@ namespace Supermarket.MVVM.ViewModel
         public RelayCommand OpenRegisterPopupCommand { get; }
         #endregion
 
-        public LoginViewModel(INavigationService navigationService)
+        public LoginViewModel(INavigationService navigationService, UserBLL userBLL)
         {
-            userBLL = new UserBLL();
-            Users = userBLL.GetAll();
+            _userBLL = userBLL;
+            Users = _userBLL.GetAll();
 
             LoginCommand = new RelayCommand(Login);
             RegisterCommand = new RelayCommand(Register);
@@ -107,7 +107,7 @@ namespace Supermarket.MVVM.ViewModel
             else
             {
                 //check if the user exists
-                User user = userBLL.Authenticate(Username, Password);
+                User user = _userBLL.Authenticate(Username, Password);
                 if (user != null)
                 {
                     App.MainVM.CurrentUser = user;

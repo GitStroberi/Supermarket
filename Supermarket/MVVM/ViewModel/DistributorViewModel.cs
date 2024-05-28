@@ -12,13 +12,13 @@ namespace Supermarket.MVVM.ViewModel
 {
     public class DistributorViewModel : Core.ViewModel
     {
-        private DistributorBLL distributorBLL;
+        private readonly DistributorBLL _distributorBLL;
         public ObservableCollection<Distributor> Distributors
         {
-            get { return distributorBLL.Distributors; }
+            get { return _distributorBLL.Distributors; }
             set
             {
-                distributorBLL.Distributors = value;
+                _distributorBLL.Distributors = value;
                 OnPropertyChanged();
             }
         }
@@ -73,11 +73,11 @@ namespace Supermarket.MVVM.ViewModel
 
         #endregion
 
-        public DistributorViewModel()
+        public DistributorViewModel(DistributorBLL distributorBLL)
         {
-            distributorBLL = new DistributorBLL();
+            _distributorBLL = distributorBLL;
 
-            Distributors = distributorBLL.Distributors;
+            Distributors = _distributorBLL.Distributors;
 
             SelectedDistributor = Distributors.FirstOrDefault();
 
@@ -93,20 +93,20 @@ namespace Supermarket.MVVM.ViewModel
                 Name = Name,
                 Country = Country
             };
-            distributorBLL.Add(distributor);
-            Distributors = distributorBLL.Distributors;
+            _distributorBLL.Add(distributor);
+            Distributors = _distributorBLL.Distributors;
         }
 
         private void Remove(object obj)
         {
-            distributorBLL.Remove(SelectedDistributor);
-            Distributors = new ObservableCollection<Distributor>(distributorBLL.TrueGetAll());
+            _distributorBLL.Remove(SelectedDistributor);
+            Distributors = new ObservableCollection<Distributor>(_distributorBLL.TrueGetAll());
         }
 
         private void Update(object obj)
         {
-            distributorBLL.Update(SelectedDistributor, Name, Country);
-            Distributors = new ObservableCollection<Distributor>(distributorBLL.TrueGetAll());
+            _distributorBLL.Update(SelectedDistributor, Name, Country);
+            Distributors = new ObservableCollection<Distributor>(_distributorBLL.TrueGetAll());
         }
     }
 }

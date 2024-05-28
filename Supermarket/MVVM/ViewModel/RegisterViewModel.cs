@@ -15,15 +15,15 @@ namespace Supermarket.MVVM.ViewModel
 {
     public class RegisterViewModel : Core.ViewModel
     {
-        private UserBLL userBLL;
+        private readonly UserBLL _userBLL;
 
         #region Data Members
         public ObservableCollection<User> Users
         {
-            get { return userBLL.Users; }
+            get { return _userBLL.Users; }
             set
             {
-                userBLL.Users = value;
+                _userBLL.Users = value;
                 OnPropertyChanged();
             }
         }
@@ -82,10 +82,10 @@ namespace Supermarket.MVVM.ViewModel
 
         INavigationService NavigationService { get; set; }
 
-        public RegisterViewModel(INavigationService navigationService)
+        public RegisterViewModel(INavigationService navigationService, UserBLL userBLL)
         {
-            userBLL = new UserBLL();
-            Users = userBLL.GetAll();
+            _userBLL = userBLL;
+            Users = _userBLL.GetAll();
 
             RegisterCommand = new RelayCommand(Register);
             CancelCommand = new RelayCommand(Cancel);
@@ -108,8 +108,8 @@ namespace Supermarket.MVVM.ViewModel
                     IsAdmin = IsAdmin
                 };
 
-                userBLL.Add(user);
-                Users = userBLL.GetAll();
+                _userBLL.Add(user);
+                Users = _userBLL.GetAll();
             }
         }
 
