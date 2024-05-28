@@ -22,7 +22,24 @@ namespace Supermarket.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        public Distributor SelectedDistributor { get; set; }
+
+        private Distributor _selectedDistributor;
+        public Distributor SelectedDistributor { 
+            get { return _selectedDistributor; }
+            set
+            {
+                _selectedDistributor = value;
+                if(_selectedDistributor == null)
+                {
+                    return;
+                }
+                Name = _selectedDistributor.Name;
+                Country = _selectedDistributor.Country;
+                OnPropertyChanged("Name");
+                OnPropertyChanged("Country");
+                OnPropertyChanged();
+            }
+        }
 
         private string _name;
         
@@ -60,7 +77,7 @@ namespace Supermarket.MVVM.ViewModel
         {
             distributorBLL = new DistributorBLL();
 
-            Distributors = new ObservableCollection<Distributor>(distributorBLL.TrueGetAll());
+            Distributors = distributorBLL.Distributors;
 
             SelectedDistributor = Distributors.FirstOrDefault();
 
@@ -71,13 +88,13 @@ namespace Supermarket.MVVM.ViewModel
 
         private void Add(object obj)
         {
-            Distributor distributor = new Distributor
+            Distributor distributor = new Distributor()
             {
                 Name = Name,
                 Country = Country
             };
             distributorBLL.Add(distributor);
-            Distributors = new ObservableCollection<Distributor>(distributorBLL.TrueGetAll());
+            Distributors = distributorBLL.Distributors;
         }
 
         private void Remove(object obj)
@@ -88,7 +105,7 @@ namespace Supermarket.MVVM.ViewModel
 
         private void Update(object obj)
         {
-            distributorBLL.Update(SelectedDistributor);
+            distributorBLL.Update(SelectedDistributor, Name, Country);
             Distributors = new ObservableCollection<Distributor>(distributorBLL.TrueGetAll());
         }
     }

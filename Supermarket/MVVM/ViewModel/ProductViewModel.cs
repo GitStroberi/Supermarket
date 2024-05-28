@@ -17,7 +17,7 @@ namespace Supermarket.MVVM.ViewModel
 
         public ObservableCollection<Product> Products
         {
-            get { return productBLL.TrueGetAll(); }
+            get { return productBLL.Products; }
             set
             {
                 productBLL.Products = value;
@@ -27,7 +27,7 @@ namespace Supermarket.MVVM.ViewModel
 
         public ObservableCollection<Category> Categories
         {
-            get { return categoryBLL.TrueGetAll(); }
+            get { return categoryBLL.Categories; }
             set
             {
                 categoryBLL.Categories = value;
@@ -37,7 +37,7 @@ namespace Supermarket.MVVM.ViewModel
 
         public ObservableCollection<Distributor> Distributors
         {
-            get { return distributorBLL.TrueGetAll(); }
+            get { return distributorBLL.Distributors; }
             set
             {
                 distributorBLL.Distributors = value;

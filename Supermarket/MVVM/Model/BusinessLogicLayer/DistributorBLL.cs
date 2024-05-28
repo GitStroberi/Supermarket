@@ -10,18 +10,21 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
     public class DistributorBLL
     {
         private SupermarketDBContext db = new SupermarketDBContext();
-        public ObservableCollection<Distributor> Distributors {
-            get { return TrueGetAll(); }
+        
+        private ObservableCollection<Distributor> _distributors;
+        public ObservableCollection<Distributor> Distributors
+        {
+            get { return _distributors; }
             set
             {
-                Distributors = value;
+                _distributors = value;
             }
         }
         public string ErrorMessage { get; set; }
 
         public DistributorBLL()
         {
-            Distributors = new ObservableCollection<Distributor>();
+            Distributors = TrueGetAll();
         }
 
         public void Add(object obj)
@@ -41,7 +44,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                 {
                     db.Distributors.Add(distributor);
                     db.SaveChanges();
-                    //distributor.id = db.Distributors.Max(d => d.id);
+                    //distributor.Id = db.Distributors.Max(d => d.Id);
                     Distributors.Add(distributor);
                     ErrorMessage = "";
                 }
@@ -59,18 +62,25 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             }
         }
 
-        public void Update(object obj)
+        public void Update(object obj, string name, string country)
         {
             Distributor distributor = obj as Distributor;
             if (distributor != null)
             {
-                Distributor distributorToUpdate = db.Distributors.SingleOrDefault(d => d.Id == distributor.Id);
-                if (distributorToUpdate != null)
+                if (string.IsNullOrEmpty(name))
                 {
-                    distributorToUpdate.Name = distributor.Name;
-                    distributorToUpdate.Country = distributor.Country;
-                    distributorToUpdate.IsActive = distributor.IsActive;
+                    ErrorMessage = "Name is required";
+                }
+                else if (string.IsNullOrEmpty(country))
+                {
+                    ErrorMessage = "Country is required";
+                }
+                else
+                {
+                    distributor.Name = name;
+                    distributor.Country = country;
                     db.SaveChanges();
+                    ErrorMessage = "";
                 }
             }
         }

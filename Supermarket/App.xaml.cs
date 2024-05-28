@@ -31,6 +31,7 @@ namespace Supermarket
             services.AddSingleton<LoginViewModel>(); // login
             services.AddSingleton<RegisterViewModel>(); // register
             services.AddSingleton<UserViewModel>(); // profile
+            services.AddSingleton<DistributorViewModel>(); // distributor
 
             services.AddSingleton<INavigationService, NavigationService>();
 

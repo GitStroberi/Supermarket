@@ -7,6 +7,55 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <!-- This row will take the remaining space -->
+        </Grid.RowDefinitions>
+
+        <ComboBox Grid.Row="0" VerticalAlignment="Center" Margin="0,0,400,0" Height="30"
+            ItemsSource="{Binding Distributors}" SelectedItem="{Binding SelectedDistributor}">
+            <!-- Bind ComboBox items to Produse collection from ViewModel -->
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Margin="400,0,0,0">
+            <Button Content="Add" Command="{Binding AddCommand}"/>
+            <Button Content="Update" Command="{Binding UpdateCommand}"/>
+            <Button Content="Delete" Command=""/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Name"/>
+            <TextBox Name="txtNume" Text="{Binding Name}" Margin="40 5 5 0" Width="352"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Tara origine"/>
+            <TextBox Name="txtTara" Text="{Binding Country}" Margin="11 5 5 0" Width="352"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Active"/>
+            <CheckBox Name="checkActive" IsChecked="{Binding SelectedDistributor.IsActive}" Margin="5"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="6" VerticalAlignment="Stretch"  
+            ItemsSource="{Binding Distributors}" AutoGenerateColumns="False"
+            ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <!-- Define only the columns you want to display -->
+            <DataGrid.Columns>
+                <!-- Only display the Produs_nume column -->
+                <DataGridTextColumn Header="Nume" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Tara de origine" Binding="{Binding Country}"/>
+                <DataGridTextColumn Header="Active"  Binding="{Binding IsActive}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

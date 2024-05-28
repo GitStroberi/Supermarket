@@ -12,12 +12,13 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
     {
         private SupermarketDBContext db = new SupermarketDBContext();
 
+        private ObservableCollection<Stock> _stocks;
         public ObservableCollection<Stock> Stocks
         {
-            get { return TrueGetAll(); }
+            get { return _stocks; }
             set
             {
-                Stocks = value;
+                _stocks = value;
             }
         }
         public string ErrorMessage { get; set; }
