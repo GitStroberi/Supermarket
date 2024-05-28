@@ -74,24 +74,27 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             }
         }
 
-        public void Update(object obj)
+        public void Update(object obj, string name, string barcode, Category category, Distributor distributor)
         {
             Product product = obj as Product;
-
             if (product != null)
             {
-                Product productToUpdate = db.Products.SingleOrDefault(p => p.Id == product.Id);
-                Category category = db.Categories.SingleOrDefault(c => c.Id == product.Category.Id);
-                Distributor distributor = db.Distributors.SingleOrDefault(d => d.Id == product.Distributor.Id);
-
-                if (productToUpdate != null)
+                if (string.IsNullOrEmpty(name))
                 {
-                    productToUpdate.Name = product.Name;
-                    productToUpdate.Barcode = product.Barcode;
-                    productToUpdate.Category = category;
-                    productToUpdate.Distributor = distributor;
-                    productToUpdate.IsActive = product.IsActive;
+                    ErrorMessage = "Name is required";
+                }
+                else if (barcode == null)
+                {
+                    ErrorMessage = "Barcode is required";
+                }
+                else
+                {
+                    product.Name = name;
+                    product.Barcode = barcode;
+                    product.Category = category;
+                    product.Distributor = distributor;
                     db.SaveChanges();
+                    ErrorMessage = "";
                 }
             }
         }

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Supermarket.Core;
 using Supermarket.MVVM.Model;
 using Supermarket.MVVM.Model.BusinessLogicLayer;
 
@@ -53,29 +54,68 @@ namespace Supermarket.MVVM.ViewModel
             set
             {
                 _selectedProduct = value;
+                if (_selectedProduct == null)
+                {
+                    return;
+                }
+                Name = _selectedProduct.Name;
+                Barcode = _selectedProduct.Barcode;
+                SelectedCategory = _selectedProduct.Category;
+                SelectedDistributor = _selectedProduct.Distributor;
+                OnPropertyChanged("Name");
+                OnPropertyChanged("Barcode");
                 OnPropertyChanged();
             }
         }
 
+        private Category _selectedCategory;
         public Category SelectedCategory
         {
-            get { return _selectedProduct.Category; }
+            get { return _selectedCategory; }
             set
             {
-                _selectedProduct.Category = value;
+                _selectedCategory = value;
                 OnPropertyChanged();
             }
         }
 
+        private Distributor _selectedDistributor;
         public Distributor SelectedDistributor
         {
-            get { return _selectedProduct.Distributor; }
+            get { return _selectedDistributor; }
             set
             {
-                _selectedProduct.Distributor = value;
+                _selectedDistributor = value;
                 OnPropertyChanged();
             }
         }
+
+        private string _name;
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _barcode;
+
+        public string Barcode
+        {
+            get { return _barcode; }
+            set
+            {
+                _barcode = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public RelayCommand AddCommand { get; set; }
+        public RelayCommand RemoveCommand { get; set; }
+        public RelayCommand UpdateCommand { get; set; }
 
         public ProductViewModel(ProductBLL productBLL, CategoryBLL categoryBLL, DistributorBLL distributorBLL)
         {
@@ -86,6 +126,12 @@ namespace Supermarket.MVVM.ViewModel
             Products = _productBLL.Products;
             Categories = _categoryBLL.Categories;
             Distributors = _distributorBLL.Distributors;
+
+            AddCommand = new RelayCommand(Add);
+            RemoveCommand = new RelayCommand(Remove);
+            UpdateCommand = new RelayCommand(Update);
+
+            SelectedProduct = Products.FirstOrDefault();
         }
 
         public string ErrorMessage
@@ -97,12 +143,33 @@ namespace Supermarket.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        
-        public void AddProduct()
+
+        private void Add(object obj)
         {
-            _productBLL.Add(SelectedProduct);
-            Products = new ObservableCollection<Product>(_productBLL.TrueGetAll());
+            Product product = new Product
+            {
+                Name = Name,
+                Barcode = Barcode,
+                Category = SelectedCategory,
+                Distributor = SelectedDistributor
+            };
+
+            _productBLL.Add(product);
+            Products = _productBLL.Products;
+            ErrorMessage = _productBLL.ErrorMessage;
         }
 
+        private void Remove(object obj)
+        {
+            _productBLL.Remove(SelectedProduct);
+            Products = _productBLL.Products;
+        }
+
+        private void Update(object obj)
+        {
+            _productBLL.Update(SelectedProduct, Name, Barcode, SelectedCategory, SelectedDistributor);
+            Products = _productBLL.Products;
+            ErrorMessage = _productBLL.ErrorMessage;
+        }
     }
 }

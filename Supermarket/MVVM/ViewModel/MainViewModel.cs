@@ -93,11 +93,11 @@ namespace Supermarket.MVVM.ViewModel
             NavigateCategoryCommand = new RelayCommand(
                 o => Navigation.NavigateTo<CategoryViewModel>(),
                 o => CurrentUser != null);
-            /**
+            
             NavigateProductCommand = new RelayCommand(
                 o => Navigation.NavigateTo<ProductViewModel>(),
                 o => CurrentUser != null);
-
+            /**
             NavigateStockCommand = new RelayCommand(
                 o => Navigation.NavigateTo<StockViewModel>(),
                 o => CurrentUser != null);
