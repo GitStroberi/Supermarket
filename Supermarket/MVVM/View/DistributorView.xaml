@@ -28,7 +28,7 @@
         <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Margin="400,0,0,0">
             <Button Content="Add" Command="{Binding AddCommand}"/>
             <Button Content="Update" Command="{Binding UpdateCommand}"/>
-            <Button Content="Delete" Command=""/>
+            <Button Content="Delete" Command="{Binding RemoveCommand}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
@@ -51,7 +51,6 @@
             ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <!-- Define only the columns you want to display -->
             <DataGrid.Columns>
-                <!-- Only display the Produs_nume column -->
                 <DataGridTextColumn Header="Nume" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Tara de origine" Binding="{Binding Country}"/>
                 <DataGridTextColumn Header="Active"  Binding="{Binding IsActive}"/>
