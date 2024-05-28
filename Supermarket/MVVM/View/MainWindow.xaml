@@ -22,11 +22,11 @@
             <Button Content="Distributors"
                     Height="25"
                     Command = "{Binding NavigateDistributorCommand}"/>
-            <!--<Button Content="Categories"
+            <Button Content="Categories"
                     Height="25"
                     Command = "{Binding NavigateCategoryCommand}"/>
 
-            <Button Content="Products"
+            <!--<Button Content="Products"
                     Height="25"
                     Command = "{Binding NavigateProductCommand}"/>
             <Button Content="Stocks"

@@ -25,7 +25,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
 
         public CategoryBLL()
         {
-            Categories = new ObservableCollection<Category>();
+            Categories = TrueGetAll();
         }
 
         public void Add(object obj)
@@ -59,17 +59,20 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             }
         }
 
-        public void Update(object obj)
+        public void Update(object obj, string name)
         {
             Category category = obj as Category;
             if (category != null)
             {
-                Category categoryToUpdate = db.Categories.SingleOrDefault(c => c.Id == category.Id);
-                if (categoryToUpdate != null)
+                if (string.IsNullOrEmpty(category.Name))
                 {
-                    categoryToUpdate.Name = category.Name;
-                    categoryToUpdate.IsActive = category.IsActive;
+                    ErrorMessage = "Name is required";
+                }
+                else
+                {
+                    category.Name = name;
                     db.SaveChanges();
+                    ErrorMessage = "";
                 }
             }
         }
