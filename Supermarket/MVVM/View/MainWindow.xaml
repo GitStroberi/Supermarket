@@ -29,10 +29,10 @@
             <Button Content="Products"
                     Height="25"
                     Command = "{Binding NavigateProductCommand}"/>
-            <!--<Button Content="Stocks"
+            <Button Content="Stocks"
                     Height="25"
                     Command = "{Binding NavigateStockCommand}"/>
-            <Button Content="View Receipts"
+            <!--<Button Content="View Receipts"
                     Height="25"
                     Command = "{Binding NavigateReceiptCommand}"/>
             <Button Content="Add Receipts"

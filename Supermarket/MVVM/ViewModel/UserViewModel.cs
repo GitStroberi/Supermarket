@@ -105,7 +105,7 @@ namespace Supermarket.MVVM.ViewModel
         {
             _userBLL = userBLL;
 
-            Users = userBLL.Users;
+            Users = _userBLL.Users;
 
             SelectedUser = Users.FirstOrDefault();
 

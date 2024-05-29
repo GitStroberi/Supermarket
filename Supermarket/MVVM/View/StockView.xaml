@@ -7,6 +7,99 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <!-- This row will take the remaining space -->
+        </Grid.RowDefinitions>
+
+        <ComboBox Grid.Row="0" VerticalAlignment="Center" Margin="0,0,400,0" Height="30"
+         ItemsSource="{Binding Stocks}" SelectedItem="{Binding SelectedStock}">
+            <!-- Bind ComboBox items to Produse collection from ViewModel -->
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Product.Name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Margin="400,0,0,0">
+            <Button Content="Add" Command="{Binding AddCommand}"/>
+            <Button Content="Update" Command="{Binding UpdateCommand}"/>
+            <Button Content="Delete" Command="{Binding RemoveCommand}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Produs"/>
+            <ComboBox Name="comboProdus" Grid.Row="1" SelectedItem="{Binding SelectedProduct}"
+                ItemsSource="{Binding Products}"
+                Margin="64 5 5 0" Width="352">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Cantitate"/>
+            <TextBox Name="txtCantitate" Text="{Binding Quantity}" Margin="54 5 5 0" Width="352"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Unitate de masura"/>
+            <TextBox Name="txtUnitate" Text="{Binding UnitOfMeasurement}" Margin="5 5 5 0" Width="352"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Data aprovizionare"/>
+            <TextBox Name="txtData" Text="{Binding SupplyDate}" Margin="3 5 5 0" Width="352"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Data expirare"/>
+            <TextBox Name="txtDataF" Text="{Binding ExpirationDate}" Margin="33 5 5 0" Width="352"/>
+        </StackPanel>
+
+        <StackPanel Name="stackAchizite" Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Center" Visibility="Collapsed">
+            <Label Content="Pret achizitie"/>
+            <TextBox Name="txtAchizitie" Text="{Binding AcquisitionPrice}" Margin="36 5 5 0" Width="352"/>
+        </StackPanel>
+
+        <StackPanel Name="stackVanzare" Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Pret vanzare"/>
+            <TextBox Name="txtVanzare" Text="{Binding SalePrice}" Margin="39 5 5 0" Width="352"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="7" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Active"/>
+            <CheckBox Name="checkActive" IsChecked="{Binding SelectedStock.IsActive}" Margin="5"/>
+            <Button Name="btnAdd" Content="Add" Command="{Binding AddCommand}" Width="100" Margin="160 0 0 0 " Visibility="Collapsed"/>
+        </StackPanel>
+
+        <!-- DataGrid -->
+        <DataGrid Grid.Row="8" VerticalAlignment="Stretch"  
+            ItemsSource="{Binding Stocks}" AutoGenerateColumns="False"
+            ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <!-- Define only the columns you want to display -->
+            <DataGrid.Columns>
+                <!-- Only display the Produs_nume column -->
+                <DataGridTextColumn Header="Stoc Produs" Binding="{Binding Product.Name}"/>
+                <DataGridTextColumn Header="Cantitate" Binding="{Binding Quantity}"/>
+                <DataGridTextColumn Header="Unitate de masura"  Binding="{Binding UnitOfMeasurement}"/>
+                <DataGridTextColumn Header="Data aprovizionare" Binding="{Binding SupplyDate}"/>
+                <DataGridTextColumn Header="Data expirare" Binding="{Binding ExpirationDate}"/>
+                <DataGridTextColumn Header="Pret achizitie" Binding="{Binding AcquisitionPrice}"/>
+                <DataGridTextColumn Header="Pret vanzare" Binding="{Binding SalePrice}"/>
+                <DataGridTextColumn Header="Active" Binding="{Binding IsActive}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

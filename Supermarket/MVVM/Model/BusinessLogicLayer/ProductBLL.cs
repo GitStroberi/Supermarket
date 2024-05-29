@@ -9,7 +9,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
 {
     public class ProductBLL
     {
-        private SupermarketDBContext db = new SupermarketDBContext();
+        private readonly SupermarketDBContext _db;
 
         private ObservableCollection<Product> _products;
         public ObservableCollection<Product> Products
@@ -23,9 +23,10 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
 
         public string ErrorMessage { get; set; }
 
-        public ProductBLL()
+        public ProductBLL(SupermarketDBContext db)
         {
-            Products = new ObservableCollection<Product>();
+            _db = db;
+            Products = TrueGetAll();
         }
 
         public void Add(object obj)
@@ -51,12 +52,12 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                 }
                 else
                 {
-                    db.Categories.Attach(product.Category);
-                    db.Distributors.Attach(product.Distributor);
-                    db.Products.Add(product);
+                    _db.Categories.Attach(product.Category);
+                    _db.Distributors.Attach(product.Distributor);
+                    _db.Products.Add(product);
 
-                    db.SaveChanges();
-                    //product.id = db.Products.Max(p => p.id);
+                    _db.SaveChanges();
+                    //product.id = _db.Products.Max(p => p.id);
                     Products.Add(product);
                     ErrorMessage = "";
                 }
@@ -70,7 +71,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             {
                 //set is_active to false
                 product.IsActive = false;
-                db.SaveChanges();
+                _db.SaveChanges();
             }
         }
 
@@ -93,7 +94,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                     product.Barcode = barcode;
                     product.Category = category;
                     product.Distributor = distributor;
-                    db.SaveChanges();
+                    _db.SaveChanges();
                     ErrorMessage = "";
                 }
             }
@@ -101,12 +102,12 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
 
         public ObservableCollection<Product> TrueGetAll()
         {
-            return new ObservableCollection<Product>(db.Products);
+            return new ObservableCollection<Product>(_db.Products);
         }
 
         public ObservableCollection<Product> GetAll()
         {
-            return new ObservableCollection<Product>(db.Products.Where(p => p.IsActive == true));
+            return new ObservableCollection<Product>(_db.Products.Where(p => p.IsActive == true));
         }
     }
 }

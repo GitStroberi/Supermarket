@@ -10,7 +10,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
 {
     public class StockBLL
     {
-        private readonly SupermarketDBContext _db = new SupermarketDBContext();
+        private readonly SupermarketDBContext _db;
 
         private ObservableCollection<Stock> _stocks;
         public ObservableCollection<Stock> Stocks
@@ -19,6 +19,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             set
             {
                 _stocks = value;
+                
             }
         }
 
@@ -51,6 +52,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                     _db.Products.Attach(stock.Product);
                     _db.Stocks.Add(stock);
                     _db.SaveChanges();
+                    Stocks.Add(stock);
                     ErrorMessage = "";
                 }
             }
@@ -67,22 +69,35 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             }
         }
 
-        public void Update(object obj)
+        public void Update(object obj, Product selectedProduct, int quantity, string unitOfMeasurement, DateTime supplyDate, DateTime? expirationDate, decimal acquisitionPrice, decimal salePrice)
         {
             Stock stock = obj as Stock;
             if (stock != null)
             {
-                Stock stockToUpdate = _db.Stocks.SingleOrDefault(s => s.Id == stock.Id);
-                if (stockToUpdate != null)
+                if (selectedProduct == null)
                 {
-                    stockToUpdate.Product = stock.Product;
-                    stockToUpdate.Quantity = stock.Quantity;
-                    stockToUpdate.UnitOfMeasurement = stock.UnitOfMeasurement;
-                    stockToUpdate.SupplyDate = stock.SupplyDate;
-                    stockToUpdate.ExpirationDate = stock.ExpirationDate;
-                    stockToUpdate.SalePrice = stock.SalePrice;
-                    stockToUpdate.IsActive = stock.IsActive;
+                    ErrorMessage = "Product is required";
+                }
+                else if (quantity == 0)
+                {
+                    ErrorMessage = "Quantity is required";
+                }
+                else if (salePrice == 0)
+                {
+                    ErrorMessage = "Price is required";
+                }
+                else
+                {
+                    stock.Product = selectedProduct;
+                    stock.Quantity = quantity;
+                    stock.UnitOfMeasurement = unitOfMeasurement;
+                    stock.SupplyDate = supplyDate;
+                    stock.ExpirationDate = expirationDate;
+                    stock.AcquisitionPrice = acquisitionPrice;
+                    stock.SalePrice = salePrice;
+
                     _db.SaveChanges();
+                    ErrorMessage = "";
                 }
             }
         }

@@ -37,6 +37,7 @@ namespace Supermarket
             services.AddSingleton<DistributorViewModel>(); // distributor
             services.AddSingleton<CategoryViewModel>(); // category
             services.AddSingleton<ProductViewModel>(); // product
+            services.AddSingleton<StockViewModel>(); // stock
 
             services.AddSingleton<INavigationService, NavigationService>();
 
