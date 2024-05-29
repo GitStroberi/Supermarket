@@ -100,13 +100,13 @@ namespace Supermarket.MVVM.ViewModel
         private void Remove(object obj)
         {
             _distributorBLL.Remove(SelectedDistributor);
-            Distributors = new ObservableCollection<Distributor>(_distributorBLL.TrueGetAll());
+            Distributors = _distributorBLL.Distributors;
         }
 
         private void Update(object obj)
         {
             _distributorBLL.Update(SelectedDistributor, Name, Country);
-            Distributors = new ObservableCollection<Distributor>(_distributorBLL.TrueGetAll());
+            Distributors = _distributorBLL.Distributors;
         }
     }
 }

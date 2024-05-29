@@ -63,18 +63,26 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             }
         }
 
-        public void Update(object obj)
+        public void Update(object obj, string username, string password, bool isAdmin)
         {
             User user = obj as User;
             if (user != null)
             {
-                User userToUpdate = _db.Users.SingleOrDefault(u => u.Id == user.Id);
-                if (userToUpdate != null)
+                if (string.IsNullOrEmpty(username))
                 {
-                    userToUpdate.Username = user.Username;
-                    userToUpdate.Password = user.Password;
-                    userToUpdate.IsAdmin = user.IsAdmin;
+                    ErrorMessage = "Username is required";
+                }
+                else if (string.IsNullOrEmpty(password))
+                {
+                    ErrorMessage = "Password is required";
+                }
+                else
+                {
+                    user.Username = username;
+                    user.Password = password;
+                    user.IsAdmin = isAdmin;
                     _db.SaveChanges();
+                    ErrorMessage = "";
                 }
             }
         }

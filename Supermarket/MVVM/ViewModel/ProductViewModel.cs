@@ -163,6 +163,7 @@ namespace Supermarket.MVVM.ViewModel
         {
             _productBLL.Remove(SelectedProduct);
             Products = _productBLL.Products;
+            ErrorMessage = _productBLL.ErrorMessage;
         }
 
         private void Update(object obj)

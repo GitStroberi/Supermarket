@@ -23,7 +23,73 @@ namespace Supermarket.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        public User SelectedUser { get; set; }
+        private User _selectedUser;
+
+        public User SelectedUser
+        {
+            get { return _selectedUser; }
+            set
+            {
+                _selectedUser = value;
+                if (_selectedUser == null)
+                {
+                    return;
+                }
+                Username = _selectedUser.Username;
+                Password = _selectedUser.Password;
+                IsAdmin = _selectedUser.IsAdmin;
+                OnPropertyChanged("Username");
+                OnPropertyChanged("Password");
+                OnPropertyChanged("IsAdmin");
+                OnPropertyChanged();
+            }
+        }
+
+        private string _username;
+
+        public string Username
+        {
+            get { return _username; }
+            set
+            {
+                _username = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _password;
+
+        public string Password
+        {
+            get { return _password; }
+            set
+            {
+                _password = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isAdmin;
+
+        public bool IsAdmin
+        {
+            get { return _isAdmin; }
+            set
+            {
+                _isAdmin = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string ErrorMessage
+        {
+            get { return _userBLL.ErrorMessage; }
+            set
+            {
+                _userBLL.ErrorMessage = value;
+                OnPropertyChanged();
+            }
+        }
         
         #endregion
 
@@ -50,20 +116,29 @@ namespace Supermarket.MVVM.ViewModel
 
         private void Add(object obj)
         {
-            _userBLL.Add(SelectedUser);
+            User user = new User
+            {
+                Username = Username,
+                Password = Password,
+                IsAdmin = IsAdmin
+            };
+            _userBLL.Add(user);
             Users = _userBLL.Users;
+            ErrorMessage = _userBLL.ErrorMessage;
         }
 
         private void Remove(object obj)
         {
             _userBLL.Remove(SelectedUser);
             Users = _userBLL.Users;
+            ErrorMessage = _userBLL.ErrorMessage;
         }
 
         private void Update(object obj)
         {
-            _userBLL.Update(SelectedUser);
+            _userBLL.Update(SelectedUser, Username, Password, IsAdmin);
             Users = _userBLL.Users;
+            ErrorMessage = _userBLL.ErrorMessage;
         }
     }
 }

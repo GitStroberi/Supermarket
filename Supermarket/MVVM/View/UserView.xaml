@@ -7,24 +7,64 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid ItemsSource="{Binding Users}"
-                  SelectedItem="{Binding SelectedUser}"
-                  AutoGenerateColumns="False"
-                  Margin="10"
-                  >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <!-- This row will take the remaining space -->
+        </Grid.RowDefinitions>
+        <ComboBox Grid.Row="0" VerticalAlignment="Center" Margin="0,0,400,0" Height="30"
+            ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}">
+            <!-- Bind ComboBox items to Produse collection from ViewModel -->
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Username}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Margin="400,0,0,0">
+            <Button Content="Add" Command="{Binding AddCommand}"/>
+            <Button Content="Update" Command="{Binding UpdateCommand}"/>
+            <Button Content="Delete" Command="{Binding RemoveCommand}"/>
+        </StackPanel>
+
+        <!-- Label and TextBox for name -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Nume"/>
+            <TextBox Name="txtNume" Text="{Binding Username}" Margin="40 5 5 0" Width="352"/>
+        </StackPanel>
+
+        <!-- Additional information -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Parola"/>
+            <TextBox Name="txtParola" Text="{Binding Password}" Margin="39 5 5 0" Width="352"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Tip"/>
+            <CheckBox Name="idAdmin" IsChecked="{Binding IsAdmin}" Margin="5"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Active"/>
+            <CheckBox Name="checkActive" IsChecked="{Binding SelectedUser.IsActive}" Margin="5"/>
+        </StackPanel>
+
+        <!-- DataGrid -->
+        <DataGrid Grid.Row="5" VerticalAlignment="Stretch"  
+            ItemsSource="{Binding Users}" AutoGenerateColumns="False"
+            ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <!-- Define only the columns you want to display -->
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="Auto"/>
-                <DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="Auto"/>
-                <DataGridTextColumn Header="Password" Binding="{Binding Password}" Width="Auto"/>
-                <DataGridTextColumn Header="IsActive" Binding="{Binding IsActive}" Width="Auto"/>
+                <!-- Only display the Produs_nume column -->
+                <DataGridTextColumn Header="Nume" Binding="{Binding Username}"/>
+                <DataGridTextColumn Header="Parola" Binding="{Binding Password}"/>
+                <DataGridTextColumn Header="Tip"  Binding="{Binding IsAdmin}"/>
+                <DataGridTextColumn Header="Active" Binding="{Binding IsActive}"/>
             </DataGrid.Columns>
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Add" Command="{Binding AddCommand}"/>
-                    <MenuItem Header="Update" Command="{Binding UpdateCommand}"/>
-                    <MenuItem Header="Remove" Command="{Binding RemoveCommand}"/>
-                </ContextMenu>
-            </DataGrid.ContextMenu>
         </DataGrid>
     </Grid>
 </UserControl>
