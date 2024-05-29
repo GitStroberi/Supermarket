@@ -7,6 +7,44 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <!-- This row will take the remaining space -->
+        </Grid.RowDefinitions>
+
+        <!-- ListBox with buttons -->
+        <ComboBox Grid.Row="0" VerticalAlignment="Center" Margin="0,0,400,0" Height="30"
+         ItemsSource="{Binding Receipts}" SelectedItem="{Binding SelectedReceipt}" SelectionChanged="ComboBox_SelectionChanged">
+            <!-- Bind ComboBox items to Produse collection from ViewModel -->
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding ReleaseDate}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <!-- Label and TextBox for name -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Casier"/>
+            <TextBox Name="txtCasier" Text="{Binding Cashier.Username}" Margin="45 5 5 0" Width="352"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label Content="Suma Incasata"/>
+            <TextBox Name="txtSuma" Text="{Binding Value}" Margin="2 5 5 0" Width="352"/>
+        </StackPanel>
+
+        <!-- DataGrid -->
+        <DataGrid Grid.Row="3" VerticalAlignment="Stretch"
+          ItemsSource="{Binding ProductReceiptInfos}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Produs" Binding="{Binding ProductName}"/>
+                <DataGridTextColumn Header="Cantitate" Binding="{Binding Quantity}"/>
+                <DataGridTextColumn Header="Pret" Binding="{Binding Price}"/>
+                <DataGridTextColumn Header="Pret total" Binding="{Binding TotalPrice}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

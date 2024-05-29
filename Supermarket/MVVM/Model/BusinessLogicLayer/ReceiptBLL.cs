@@ -9,7 +9,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
 {
     public class ReceiptBLL
     {
-        private SupermarketDBContext db = new SupermarketDBContext();
+        private SupermarketDBContext _db;
 
         private ObservableCollection<Receipt> _receipts;
         public ObservableCollection<Receipt> Receipts
@@ -23,9 +23,10 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
 
         public string ErrorMessage { get; set; }
 
-        public ReceiptBLL()
+        public ReceiptBLL(SupermarketDBContext db)
         {
-            Receipts = new ObservableCollection<Receipt>();
+            _db = db;
+            Receipts = TrueGetAll();
         }
 
         public void Add(object obj)
@@ -43,10 +44,10 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
                 }
                 else
                 {
-                    db.Users.Attach(receipt.Cashier);
-                    db.Receipts.Add(receipt);
+                    _db.Users.Attach(receipt.Cashier);
+                    _db.Receipts.Add(receipt);
 
-                    db.SaveChanges();
+                    _db.SaveChanges();
                     Receipts.Add(receipt);
                     ErrorMessage = "";
                 }
@@ -60,7 +61,7 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             {
                 //set is_active to false
                 receipt.IsActive = false;
-                db.SaveChanges();
+                _db.SaveChanges();
             }
         }
 
@@ -69,26 +70,26 @@ namespace Supermarket.MVVM.Model.BusinessLogicLayer
             Receipt receipt = obj as Receipt;
             if (receipt != null)
             {
-                Receipt receiptToUpdate = db.Receipts.SingleOrDefault(r => r.Id == receipt.Id);
+                Receipt receiptToUpdate = _db.Receipts.SingleOrDefault(r => r.Id == receipt.Id);
                 if (receiptToUpdate != null)
                 {
                     receiptToUpdate.Cashier = receipt.Cashier;
                     receiptToUpdate.ReleaseDate = receipt.ReleaseDate;
                     receiptToUpdate.Value = receipt.Value;
                     receiptToUpdate.IsActive = receipt.IsActive;
-                    db.SaveChanges();
+                    _db.SaveChanges();
                 }
             }
         }
 
         private ObservableCollection<Receipt> TrueGetAll()
         {
-            return new ObservableCollection<Receipt>(db.Receipts);
+            return new ObservableCollection<Receipt>(_db.Receipts);
         }
 
         private ObservableCollection<Receipt> GetAll()
         {
-            return new ObservableCollection<Receipt>(db.Receipts.Where(r => r.IsActive == true));
+            return new ObservableCollection<Receipt>(_db.Receipts.Where(r => r.IsActive == true));
         }
     }
 }

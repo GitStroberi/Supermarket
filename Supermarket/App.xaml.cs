@@ -38,6 +38,8 @@ namespace Supermarket
             services.AddSingleton<CategoryViewModel>(); // category
             services.AddSingleton<ProductViewModel>(); // product
             services.AddSingleton<StockViewModel>(); // stock
+            services.AddSingleton<ReceiptViewModel>(); // receipt
+            services.AddSingleton<AddReceiptViewModel>(); // add receipt
 
             services.AddSingleton<INavigationService, NavigationService>();
 
