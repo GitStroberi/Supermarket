@@ -20,7 +20,6 @@
         <!-- ListBox with buttons -->
         <ComboBox Grid.Row="0" VerticalAlignment="Center" Margin="0,0,400,0" Height="30"
          ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}">
-            <!-- Bind ComboBox items to Produse collection from ViewModel -->
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}"/>
@@ -31,29 +30,29 @@
         <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Margin="400,0,0,0">
             <Button Content="Add" Command="{Binding AddCommand}"/>
             <Button Content="Update" Command="{Binding UpdateCommand}"/>
-            <Button Content="Delete" Command="{Binding DeleteCommand}"/>
+            <Button Content="Remove" Command="{Binding DeleteCommand}"/>
         </StackPanel>
 
         <!-- Label and TextBox for name -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label Content="Cantitate"/>
-            <TextBox Name="txtCantitate" Text="{Binding Quantity}" Margin="25 5 5 0" Width="352"/>
+            <Label Content="Quantity"/>
+            <TextBox Text="{Binding Quantity}" Margin="25 5 5 0" Width="352"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label Content="Produs"/>
-            <ComboBox Name="comboProdus" Grid.Row="3" SelectedItem="{Binding SelectedProduct.Name}"
+            <Label Content="Product"/>
+            <ComboBox Grid.Row="3" SelectedItem="{Binding SelectedProduct.Name}"
                 ItemsSource="{Binding Produse}"
                 Margin="35 5 5 0" Width="352"/>
 
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center">
-            <Button Content="Add produs" Margin="220 0 0 0" Command="{Binding AddProduct}"/>
+            <Button Content="Add product" Margin="220 0 0 0" Command="{Binding AddProduct}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center">
             <Label Content="Remove"/>
-            <ComboBox Name="comboAddedProdus" ItemsSource="{Binding AddedProduse}" SelectedItem="{Binding SelectedAddedProdus}"
+            <ComboBox ItemsSource="{Binding AddedProduse}" SelectedItem="{Binding SelectedAddedProduct}"
               DisplayMemberPath="Produs_nume" Margin="30 5 5 0" Width="352"/>
             <Button Content="Remove Produs" Command="{Binding RemoveProdusCommand}" Margin="5"/>
         </StackPanel>

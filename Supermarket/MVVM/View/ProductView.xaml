@@ -21,7 +21,7 @@
         <!-- ListBox with buttons -->
         <ComboBox Grid.Row="0" VerticalAlignment="Center" Margin="0,0,400,0" Height="30"
          ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}">
-            <!-- Bind ComboBox items to Produse collection from ViewModel -->
+            <!-- Bind ComboBox items to Products collection from ViewModel -->
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}"/>
@@ -32,24 +32,24 @@
         <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Margin="400,0,0,0">
             <Button Content="Add" Command="{Binding AddCommand}"/>
             <Button Content="Update" Command="{Binding UpdateCommand}"/>
-            <Button Content="Delete" Command="{Binding RemoveCommand}"/>
+            <Button Content="Remove" Command="{Binding RemoveCommand}"/>
         </StackPanel>
 
         <!-- Label and TextBox for name -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label Content="Nume"/>
-            <TextBox Name="txtNume" Text="{Binding Name}" Margin="40 5 5 0" Width="352"/>
+            <Label Content="Name"/>
+            <TextBox Text="{Binding Name}" Margin="40 5 5 0" Width="352"/>
         </StackPanel>
 
         <!-- Additional information -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label Content="Cod de bare"/>
-            <TextBox Name="txtCod" Text="{Binding Barcode}" Margin="7 5 5 0" Width="352"/>
+            <Label Content="Barcode"/>
+            <TextBox Text="{Binding Barcode}" Margin="7 5 5 0" Width="352"/>
         </StackPanel>
         
         <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label Content="Categorie"/>
-            <ComboBox Name="comboCategorie" Grid.Row="3" SelectedItem="{Binding SelectedCategory}"
+            <Label Content="Category"/>
+            <ComboBox Grid.Row="3" SelectedItem="{Binding SelectedCategory}"
                 ItemsSource="{Binding Categories}"
                 Margin="21 5 5 0" Width="352">
                 <ComboBox.ItemTemplate>
@@ -60,8 +60,8 @@
             </ComboBox>
         </StackPanel>
         <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label Content="Producator"/>
-            <ComboBox Name="comboProducator" Grid.Row="4" SelectedItem="{Binding SelectedDistributor}"
+            <Label Content="Distributor"/>
+            <ComboBox Grid.Row="4" SelectedItem="{Binding SelectedDistributor}"
                 ItemsSource="{Binding Distributors}"
                 Margin="14 5 5 0" Width="352">
                 <ComboBox.ItemTemplate>
@@ -72,8 +72,8 @@
             </ComboBox>
         </StackPanel>
         <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label Content="Active"/>
-            <CheckBox Name="checkActive" IsChecked="{Binding SelectedProduct.IsActive}" Margin="5"/>
+            <Label Content="Is Active"/>
+            <CheckBox IsChecked="{Binding SelectedProduct.IsActive}" Margin="5"/>
         </StackPanel>
 
         <!-- DataGrid -->
@@ -82,12 +82,11 @@
           ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <!-- Define only the columns you want to display -->
             <DataGrid.Columns>
-                <!-- Only display the Produs_nume column -->
-                <DataGridTextColumn Header="Nume" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Cod de bare" Binding="{Binding Barcode}"/>
-                <DataGridTextColumn Header="Categorie"  Binding="{Binding Category.Name}"/>
-                <DataGridTextColumn Header="Producator" Binding="{Binding Distributor.Name}"/>
-                <DataGridTextColumn Header="Active" Binding="{Binding IsActive}"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Barcode" Binding="{Binding Barcode}"/>
+                <DataGridTextColumn Header="Category"  Binding="{Binding Category.Name}"/>
+                <DataGridTextColumn Header="Distributor" Binding="{Binding Distributor.Name}"/>
+                <DataGridTextColumn Header="Is Active" Binding="{Binding IsActive}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

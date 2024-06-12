@@ -201,5 +201,7 @@ namespace Supermarket.MVVM.ViewModel
             _stockBLL.Update(SelectedStock, SelectedProduct, Quantity, UnitOfMeasurement, SupplyDate, ExpirationDate, AcquisitionPrice, SalePrice);
             Stocks = _stockBLL.Stocks;
         }
+
+
     }
 }

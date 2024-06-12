@@ -18,7 +18,7 @@
 
         <ComboBox Grid.Row="0" VerticalAlignment="Center" Margin="0,0,400,0" Height="30"
             ItemsSource="{Binding Distributors}" SelectedItem="{Binding SelectedDistributor}">
-            <!-- Bind ComboBox items to Produse collection from ViewModel -->
+            <!-- Bind ComboBox items to Products collection from ViewModel -->
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}"/>
@@ -28,22 +28,22 @@
         <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Margin="400,0,0,0">
             <Button Content="Add" Command="{Binding AddCommand}"/>
             <Button Content="Update" Command="{Binding UpdateCommand}"/>
-            <Button Content="Delete" Command="{Binding RemoveCommand}"/>
+            <Button Content="Remove" Command="{Binding RemoveCommand}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
             <Label Content="Name"/>
-            <TextBox Name="txtNume" Text="{Binding Name}" Margin="40 5 5 0" Width="352"/>
+            <TextBox Text="{Binding Name}" Margin="40 5 5 0" Width="352"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label Content="Tara origine"/>
-            <TextBox Name="txtTara" Text="{Binding Country}" Margin="11 5 5 0" Width="352"/>
+            <Label Content="Country"/>
+            <TextBox Text="{Binding Country}" Margin="11 5 5 0" Width="352"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label Content="Active"/>
-            <CheckBox Name="checkActive" IsChecked="{Binding SelectedDistributor.IsActive}" Margin="5"/>
+            <Label Content="Is Active"/>
+            <CheckBox IsChecked="{Binding SelectedDistributor.IsActive}" Margin="5"/>
         </StackPanel>
 
         <DataGrid Grid.Row="6" VerticalAlignment="Stretch"  
@@ -51,9 +51,9 @@
             ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <!-- Define only the columns you want to display -->
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nume" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Tara de origine" Binding="{Binding Country}"/>
-                <DataGridTextColumn Header="Active"  Binding="{Binding IsActive}"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Country" Binding="{Binding Country}"/>
+                <DataGridTextColumn Header="Is Active"  Binding="{Binding IsActive}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

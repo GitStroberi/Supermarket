@@ -26,16 +26,16 @@
         <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Margin="400,0,0,0">
             <Button Content="Add" Command="{Binding AddCommand}"/>
             <Button Content="Update" Command="{Binding UpdateCommand}"/>
-            <Button Content="Delete" Command="{Binding RemoveCommand}"/>
+            <Button Content="Remove" Command="{Binding RemoveCommand}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label Content="Nume"/>
-            <TextBox Name="txtNume" Text="{Binding Name}" Margin="40 5 5 0" Width="352"/>
+            <Label Content="Name"/>
+            <TextBox Text="{Binding Name}" Margin="40 5 5 0" Width="352"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label Content="Active"/>
-            <CheckBox Name="checkActive" IsChecked="{Binding SelectedCategory.IsActive}" Margin="5"/>
+            <Label Content="Is Active"/>
+            <CheckBox IsChecked="{Binding SelectedCategory.IsActive}" Margin="5"/>
         </StackPanel>
 
         <DataGrid Grid.Row="3" VerticalAlignment="Stretch"  
@@ -43,9 +43,8 @@
             ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <!-- Define only the columns you want to display -->
             <DataGrid.Columns>
-                <!-- Only display the Produs_nume column -->
-                <DataGridTextColumn Header="Nume" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Active" Binding="{Binding IsActive}"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Is Active" Binding="{Binding IsActive}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

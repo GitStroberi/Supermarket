@@ -29,28 +29,28 @@
         <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal" Margin="400,0,0,0">
             <Button Content="Add" Command="{Binding AddCommand}"/>
             <Button Content="Update" Command="{Binding UpdateCommand}"/>
-            <Button Content="Delete" Command="{Binding RemoveCommand}"/>
+            <Button Content="Remove" Command="{Binding RemoveCommand}"/>
         </StackPanel>
 
         <!-- Label and TextBox for name -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label Content="Nume"/>
-            <TextBox Name="txtNume" Text="{Binding Username}" Margin="40 5 5 0" Width="352"/>
+            <Label Content="Username"/>
+            <TextBox Text="{Binding Username}" Margin="40 5 5 0" Width="352"/>
         </StackPanel>
 
         <!-- Additional information -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label Content="Parola"/>
-            <TextBox Name="txtParola" Text="{Binding Password}" Margin="39 5 5 0" Width="352"/>
+            <Label Content="Password"/>
+            <TextBox Text="{Binding Password}" Margin="39 5 5 0" Width="352"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label Content="Tip"/>
-            <CheckBox Name="idAdmin" IsChecked="{Binding IsAdmin}" Margin="5"/>
+            <Label Content="Is Admin"/>
+            <CheckBox IsChecked="{Binding IsAdmin}" Margin="5"/>
         </StackPanel>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label Content="Active"/>
-            <CheckBox Name="checkActive" IsChecked="{Binding SelectedUser.IsActive}" Margin="5"/>
+            <Label Content="Is Active"/>
+            <CheckBox IsChecked="{Binding SelectedUser.IsActive}" Margin="5"/>
         </StackPanel>
 
         <!-- DataGrid -->
@@ -59,11 +59,10 @@
             ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <!-- Define only the columns you want to display -->
             <DataGrid.Columns>
-                <!-- Only display the Produs_nume column -->
-                <DataGridTextColumn Header="Nume" Binding="{Binding Username}"/>
-                <DataGridTextColumn Header="Parola" Binding="{Binding Password}"/>
-                <DataGridTextColumn Header="Tip"  Binding="{Binding IsAdmin}"/>
-                <DataGridTextColumn Header="Active" Binding="{Binding IsActive}"/>
+                <DataGridTextColumn Header="Username" Binding="{Binding Username}"/>
+                <DataGridTextColumn Header="Password" Binding="{Binding Password}"/>
+                <DataGridTextColumn Header="Is Admin"  Binding="{Binding IsAdmin}"/>
+                <DataGridTextColumn Header="Is Active" Binding="{Binding IsActive}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
